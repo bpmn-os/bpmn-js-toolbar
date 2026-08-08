@@ -1,0 +1,82 @@
+/* The toolbar for a bpmn-js canvas, in the light-grey palette language of the modeller it stands on: a
+   bordered bar whose icons turn the accent colour when pointed at. It sits at the bottom right inside the
+   canvas container, behind the bpmn.io watermark and sized so that the 53x21 logo lands to its right on the
+   same baseline. Everything is themable through the --bpmn-toolbar-* custom properties. */
+
+/* The bar states its own box sizing, its height and width including padding and border, since a host sets
+   no global reset and the bar must align with the logo exactly. */
+.bpmn-toolbar,
+.bpmn-toolbar * {
+  box-sizing: border-box;
+}
+
+.bpmn-toolbar {
+  position: absolute;
+  right: 8px;
+  bottom: 11px;
+  z-index: 10;             /* under the bpmn.io logo, which stands at 100 */
+}
+
+.bpmn-toolbar > ul {
+  display: inline-flex;
+  align-items: center;
+  height: 35px;            /* bottom 11 plus 35/2 is 28.5, the logo's vertical centre */
+  margin: 0;
+  padding: 0 62px 0 0;     /* the right end is left to the bpmn.io logo: 53px and a gap */
+  list-style: none;
+  background: var(--bpmn-toolbar-bg, hsl(225, 10%, 97%));
+  border: 1px solid var(--bpmn-toolbar-border, hsl(225, 10%, 75%));
+  border-radius: 2px;
+}
+
+/* A button carries the padding and the item the rest of the gap, so that a pressed toggle is a chip around
+   its icon rather than a band across the bar, and the space between two icons is what it always was. */
+.bpmn-toolbar > ul > li {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+  padding: 0 5px;
+}
+
+.bpmn-toolbar > ul > li > button {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 4px;
+  border: none;
+  border-radius: 2px;
+  background: none;
+  font: inherit;
+  color: var(--bpmn-toolbar-icon, rgb(64, 64, 64));
+  cursor: pointer;
+}
+
+/* Pointed at, an icon takes the accent; switched on, a toggle takes the accent as its field and draws its
+   icon out of it. The two must not be one appearance: a bar of momentary buttons gains a button that
+   stays down, and the reader has to see at a glance which it is. */
+.bpmn-toolbar > ul > li > button:hover {
+  color: var(--bpmn-toolbar-accent, hsl(205, 100%, 45%));
+}
+
+.bpmn-toolbar > ul > li > button[aria-pressed="true"] {
+  background: var(--bpmn-toolbar-accent-strong, hsl(205, 100%, 50%));
+  color: #fff;
+}
+
+.bpmn-toolbar > ul > li > button:disabled {
+  color: var(--bpmn-toolbar-disabled, hsl(225, 10%, 65%));
+  cursor: default;
+}
+
+/* An icon is given its size, its stroke and its colour here and states none of them itself, so that a glyph
+   a host contributes is drawn exactly as the toolbar's own are. */
+.bpmn-toolbar svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
