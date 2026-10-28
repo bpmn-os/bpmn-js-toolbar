@@ -6,7 +6,7 @@ plus buttons a host contributes and named configurations it switches between.
 ## Install
 
 ```sh
-npm install github:bpmn-os/bpmn-js-toolbar
+npm install bpmn-js-toolbar
 ```
 
 ## Use
